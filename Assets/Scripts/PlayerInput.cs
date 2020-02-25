@@ -3,6 +3,7 @@ using UnityEngine;
 
 // 플레이어 캐릭터를 조작하기 위한 사용자 입력을 감지
 // 감지된 입력값을 다른 컴포넌트들이 사용할 수 있도록 제공
+// MonoBehaviourPun의 photonView 프로퍼티에 접근하기 위해 MonoBehaviourPun class 상속
 public class PlayerInput : MonoBehaviourPun {
     public string moveAxisName = "Vertical"; // 앞뒤 움직임을 위한 입력축 이름
     public string rotateAxisName = "Horizontal"; // 좌우 회전을 위한 입력축 이름

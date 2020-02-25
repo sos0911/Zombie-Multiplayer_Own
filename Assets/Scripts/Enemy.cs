@@ -134,6 +134,8 @@ public class Enemy : LivingEntity {
 
 
     // 데미지를 입었을때 실행할 처리
+    // livingentity의 ondamage()가 [punrpc]이긴 하지만 오버라이드를 하면 해제된다.
+    // 고로 다시  [PunRPC] 처리를 해줘야함
     [PunRPC]
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal) {
         // 아직 사망하지 않은 경우에만 피격 효과 재생

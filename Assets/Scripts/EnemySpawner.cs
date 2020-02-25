@@ -5,6 +5,8 @@ using Photon.Pun;
 using UnityEngine;
 
 
+// IPunObservable interface를 상속함으로써 OnPhotonSerializeView()를 구현하도록 강제
+// MonoBehaviourPun class를 상속함으로써 gameobject에 포함된 photonview conponent를 사용가능하게 함
 // 적 게임 오브젝트를 주기적으로 생성
 public class EnemySpawner : MonoBehaviourPun, IPunObservable {
     public Enemy enemyPrefab; // 생성할 적 AI
@@ -119,6 +121,7 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable {
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
         // 적 프리팹으로부터 적을 생성, 네트워크 상의 모든 클라이언트들에게 생성됨
+        // PhotonNetwork.Instantiate는 첫번째 인자로 생성할 프리팹의 이름을 string으로 받음
         GameObject createdEnemy = PhotonNetwork.Instantiate(enemyPrefab.gameObject.name,
             spawnPoint.position,
             spawnPoint.rotation);
@@ -134,6 +137,7 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable {
         enemies.Add(enemy);
 
         // 적의 onDeath 이벤트에 익명 메서드 등록
+        // ondeath()는 die()가 local & remote 상관없이 직접 실행되므로 이것도 같이 수행됨
         // 사망한 적을 리스트에서 제거
         enemy.onDeath += () => enemies.Remove(enemy);
         // 사망한 적을 10 초 뒤에 파괴

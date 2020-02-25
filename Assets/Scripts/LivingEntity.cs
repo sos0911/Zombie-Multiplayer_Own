@@ -12,6 +12,7 @@ public class LivingEntity : MonoBehaviourPun, IDamageable {
 
 
     // 호스트->모든 클라이언트 방향으로 체력과 사망 상태를 동기화 하는 메서드
+    // 메인 호스트에서 다른 클라이언트로 정보를 동기화시키는 메소드 역할
     [PunRPC]
     public void ApplyUpdatedHealth(float newHealth, bool newDead) {
         health = newHealth;
@@ -42,6 +43,8 @@ public class LivingEntity : MonoBehaviourPun, IDamageable {
             photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint, hitNormal);
         }
 
+        // 자기 world에서 remote player인 상황
+        // die() remote & local 상관없이 직접 실행.
         // 체력이 0 이하 && 아직 죽지 않았다면 사망 처리 실행
         if (health <= 0 && !dead)
         {
@@ -65,6 +68,7 @@ public class LivingEntity : MonoBehaviourPun, IDamageable {
             // 체력 추가
             health += newHealth;
             // 서버에서 클라이언트로 동기화
+            // rpc()메소드 뒤 인자들은 첫번째 인자 이름을 가진 함수의 인자들
             photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, dead);
 
             // 다른 클라이언트들도 RestoreHealth를 실행하도록 함

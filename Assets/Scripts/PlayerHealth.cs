@@ -42,6 +42,7 @@ public class PlayerHealth : LivingEntity {
     }
 
     // 체력 회복
+    // [PunRPC] 태그를 붙인 메소드는 외부에서 원격 호출 메서드 .rpc()에 의해 호출가능하게 됨
     [PunRPC]
     public override void RestoreHealth(float newHealth) {
         // LivingEntity의 RestoreHealth() 실행 (체력 증가)
@@ -103,6 +104,7 @@ public class PlayerHealth : LivingEntity {
                 // 호스트에서는 아이템을 사용 후, 사용된 아이템의 효과를 모든 클라이언트들에게 동기화시킴
                 if (PhotonNetwork.IsMasterClient)
                 {
+                    // master client만 아이템 사용 가능
                     // Use 메서드를 실행하여 아이템 사용
                     item.Use(gameObject);
                 }
@@ -118,7 +120,7 @@ public class PlayerHealth : LivingEntity {
         // 로컬 플레이어만 직접 위치를 변경 가능
         if (photonView.IsMine)
         {
-            // 원점에서 반경 5유닛 내부의 랜덤한 위치 지정
+            // 원점(0,0,0) 에서 반경 5유닛 내부의 랜덤한 위치 지정
             Vector3 randomSpawnPos = Random.insideUnitSphere * 5f;
             // 랜덤 위치의 y값을 0으로 변경
             randomSpawnPos.y = 0f;

@@ -40,6 +40,9 @@ public class Gun : MonoBehaviourPun, IPunObservable {
         // 로컬 오브젝트라면 쓰기 부분이 실행됨
         if (stream.IsWriting)
         {
+            // 스트림 형태이므로 send와 receive는 보내고 받는 순서가 정해진다.
+            // 주의!! 보낸 순서대로 받아야함
+
             // 남은 탄약수를 네트워크를 통해 보내기
             stream.SendNext(ammoRemain);
             // 탄창의 탄약수를 네트워크를 통해 보내기

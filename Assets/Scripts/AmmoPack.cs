@@ -2,6 +2,7 @@
 using UnityEngine;
 
 // 총알을 충전하는 아이템
+// 어떤 클래스를 상속한 자식 클래스는 부모 클래스로 취급 가능
 public class AmmoPack : MonoBehaviourPun, IItem {
     public int ammo = 30; // 충전할 총알 수
 
