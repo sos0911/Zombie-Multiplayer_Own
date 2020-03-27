@@ -1,4 +1,4 @@
-#How to play
+# How to play
 
 * R key : reload
 * w,s : move front / back
