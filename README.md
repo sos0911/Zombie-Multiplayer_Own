@@ -25,4 +25,4 @@
 # multiplayers
 
 * using photon, allow multi-play up to 4 person
-* the number of spawning zombies, speed and health will be increased whenever level changed.
+* the number of spawning zombies, speed and health will be increased whenever level is changed.
